@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  deploy_dev:
+    docker:
+      - image: circleci/node:8.17.0
+    steps:
+      - checkout
+      - run: node -v
+      - run:
+          name: yarn lint
+          command: yarn --cwd functions/ lint
+      - run:
+          name: yarn install
+          command: yarn --cwd functions/ install
+      - run:
+          name: yarn build
+          command: yarn --cwd functions/ build
+      - run:
+          name: deploy to Firebase Function
+          command: functions/node_modules/.bin/firebase deploy --only functions --token=$FIREBASE_TOKEN
+
+workflows:
+  version: 2
+  deploy_dev:
+    jobs:
+      - deploy_dev:
+          filters:
+            branches:
+              only:
+                - develop
+                - master
+                - develop_setting_ci
