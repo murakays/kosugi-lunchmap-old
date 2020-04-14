@@ -7,14 +7,14 @@ jobs:
       - checkout
       - run: node -v
       - run:
-          name: yarn lint
-          command: yarn --cwd functions/ lint
-      - run:
           name: yarn install
           command: yarn --cwd functions/ install
       - run:
           name: yarn build
           command: yarn --cwd functions/ build
+      - run:
+          name: yarn lint
+          command: yarn --cwd functions/ lint
       - run:
           name: deploy to Firebase Function
           command: functions/node_modules/.bin/firebase deploy --only functions --token=$FIREBASE_TOKEN
