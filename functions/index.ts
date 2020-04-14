@@ -6,4 +6,4 @@ const app = express();
 
 app.use("/", indexRouter);
 
-exports.app = functions.https.onRequest(app);
+exports.app = functions.region('asia-northeast1').https.onRequest(app);
