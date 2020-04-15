@@ -1,19 +1,19 @@
 version: 2
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/node:8.17.0
     steps:
       - checkout
+      - run:
+          name: yarn lint
+          command: yarn --cwd functions/ lint
       - run:
           name: yarn install
           command: yarn --cwd functions/ install
       - run:
           name: yarn build
           command: yarn --cwd functions/ build
-      - run:
-          name: yarn lint
-          command: yarn --cwd functions/ lint
   deploy:
     docker:
       - image: circleci/node:8.17.0
@@ -26,15 +26,10 @@ workflows:
   version: 2
   workflows:
     jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - develop
-                - master
+      - build:
       - deploy:
+          requires: build
           filters:
             branches:
               only:
-                - develop
                 - master
