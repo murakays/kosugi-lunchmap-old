@@ -2,14 +2,12 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import { setupStore, history } from '@/store/configureStore';
-
-const store = setupStore();
+import { history, store } from '@/store/configureStore';
 
 // Components
-import Top from "./Pages/Top";
+import Top from '@/components/Pages/Top';
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>

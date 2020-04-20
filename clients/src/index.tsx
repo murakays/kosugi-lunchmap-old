@@ -7,7 +7,7 @@ import { Global, css } from '@emotion/core';
 import * as serviceWorker from './serviceWorker';
 
 // components
-import App from "@/components/App";
+import App from '@/components/App';
 
 render(
   <BrowserRouter>
@@ -21,7 +21,7 @@ render(
     />
     <App />
   </BrowserRouter>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

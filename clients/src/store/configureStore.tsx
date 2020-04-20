@@ -1,20 +1,20 @@
 import { createBrowserHistory } from 'history';
-import { connectRouter, routerMiddleware} from 'connected-react-router';
-import { getDefaultMiddleware, configureStore, combineReducers} from '@reduxjs/toolkit'
-import { createLogger } from "redux-logger";
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import { getDefaultMiddleware, configureStore, combineReducers } from '@reduxjs/toolkit';
+import { createLogger } from 'redux-logger';
 
 // reducer
 import { testReducer } from '@/modules';
 
-export const history = createBrowserHistory();
+const history = createBrowserHistory();
 
 // reducerを束ねる
 const rootReducer = combineReducers({
   test: testReducer,
-  router: connectRouter(history)
+  router: connectRouter(history),
 });
-
-export type RootState = ReturnType<typeof rootReducer>
+// Reducer全般の型定義
+export type RootState = ReturnType<typeof rootReducer>;
 
 // redux-loggerの設定
 const logger = createLogger({
@@ -22,15 +22,16 @@ const logger = createLogger({
   collapsed: true,
 });
 
-export const setupStore = () => {
-  const middleware = [...getDefaultMiddleware(), routerMiddleware(history)];
-
-  if (process.env.NODE_ENV === `development`) {
-    middleware.push(logger);
-  }
-
-  return configureStore({
-    reducer: rootReducer,
-    middleware
-  });
+// storeの設定
+const middleware = [...getDefaultMiddleware(), routerMiddleware(history)];
+if (process.env.NODE_ENV === `development`) {
+  middleware.push(logger);
 }
+const store = configureStore({
+  reducer: rootReducer,
+  middleware,
+});
+
+export type AppDispatch = typeof store.dispatch;
+
+export { store, history };
