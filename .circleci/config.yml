@@ -19,7 +19,7 @@ jobs:
           name: yarn build
           command: |
             yarn --cwd functions/ build
-            yarn --ced clients/ build
+            yarn --cwd clients/ build
   deploy:
     docker:
       - image: circleci/node:8.17.0
