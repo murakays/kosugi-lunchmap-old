@@ -65,7 +65,7 @@ jobs:
           at: .
       - run:
           name: deploy to Firebase Function
-          command: functions/node_modules/.bin/firebase deploy --only functions, hosting --token=$FIREBASE_TOKEN
+          command: functions/node_modules/.bin/firebase deploy --only functions,hosting --token=$FIREBASE_TOKEN
 
 workflows:
   version: 2
