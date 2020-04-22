@@ -6,15 +6,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: yarn lint
-          command: |
-            yarn --cwd functions/ lint
-            yarn --cwd clients/ lint
-      - run:
           name: yarn install
           command: |
             yarn --cwd functions/ install
             yarn --cwd clients/ install
+      - run:
+          name: yarn lint
+          command: |
+            yarn --cwd functions/ lint
+            yarn --cwd clients/ lint
       - run:
           name: yarn build
           command: |
@@ -40,4 +40,3 @@ workflows:
             branches:
               only:
                 - master
-                - develop_setting_clients
