@@ -6,11 +6,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: yarn lint
-          command: yarn --cwd functions/ lint
-      - run:
           name: yarn install
           command: yarn --cwd functions/ install
+      - run:
+          name: yarn lint
+          command: yarn --cwd functions/ lint
       - run:
           name: yarn build
           command: yarn --cwd functions/ build
