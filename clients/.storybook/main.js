@@ -28,7 +28,8 @@ module.exports = {
             plugins: [
                 ...config.plugins,
                 ...custom.plugins,
-            ]
+            ],
+            context: custom.context
         };
     }
 };
