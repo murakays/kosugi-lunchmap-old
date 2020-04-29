@@ -5,6 +5,19 @@ export default { title: 'pages|Top' };
 
 const voidFunction = (): void => void 0;
 
-export const count0 = (): JSX.Element => (
-  <Top count={0} increment={voidFunction} decrement={voidFunction} />
-);
+const sampleProps = {
+  isGetting: false,
+  restaurantInfo: [
+    {
+      restaurantId: 1,
+      name: 'デニーズ',
+      area: 'NE',
+      photoUrl: '',
+    },
+  ],
+  limit: 10,
+  page: 1,
+  getRestaurantList: voidFunction,
+};
+
+export const defaultPage = (): JSX.Element => <Top {...sampleProps} />;
