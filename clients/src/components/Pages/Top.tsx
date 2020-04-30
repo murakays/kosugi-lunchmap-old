@@ -1,46 +1,57 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { testModule } from '@/modules/test';
-import { RootState, AppDispatch } from '@/store/configureStore';
+import { RootState } from '@/store/configureStore';
+import {
+  RestaurantState,
+  // restaurantListActions,
+  getRestaurantInfo,
+} from '@/modules/restaurantList';
+import { restaurantArea } from '@/const/restaurant';
 
-const useStateProps = (): { count: number } => {
-  const { count } = useSelector((state: RootState) => state.test);
+type UseHooksProps = RestaurantState & { getRestaurantList: () => void };
+const useHooksProps = (): UseHooksProps => {
+  // state
+  const state = useSelector((state: RootState) => state.restaurantList);
+  // dispatch
+  const dispatch = useDispatch();
 
-  return { count };
+  return {
+    ...state,
+    getRestaurantList: React.useCallback(() => {
+      dispatch(getRestaurantInfo({ limit: state.limit, page: state.page }));
+    }, [dispatch]),
+  };
 };
 
-const useDispatchProps = (): {
-  increment: () => void;
-  decrement: () => void;
-} => {
-  const dispatch: AppDispatch = useDispatch();
-  const testActions = testModule.actions;
-
-  const increment = React.useCallback(() => {
-    dispatch(testActions.increment());
-  }, [dispatch]);
-  const decrement = React.useCallback(() => {
-    dispatch(testActions.decrement());
-  }, [dispatch]);
-
-  return { increment, decrement };
-};
-
-type Props = ReturnType<typeof useStateProps> & ReturnType<typeof useDispatchProps>;
-
+type Props = ReturnType<typeof useHooksProps>;
+// presentational Component
 export const Top: React.FC<Props> = (props: Props) => {
-  const { count, increment, decrement } = props;
+  const { isGetting, restaurantInfo, page, limit, getRestaurantList } = props;
 
   return (
-    <div className="App">
-      <p>{count}</p>
-      <button onClick={increment}>increment</button>
-      <button onClick={decrement}>decrement</button>
+    <div>
+      {isGetting && <span>isGetting...</span>}
+      <button onClick={getRestaurantList}>fetch</button>
+      <p>Page:{page}</p>
+      <p>Limit:{limit}</p>
+      {restaurantInfo.map((value, index) => {
+        return (
+          <div key={index}>
+            <ul>
+              <li>restaurantId:{value.restaurantId}</li>
+              <li>name:{value.name}</li>
+              <li>area:{restaurantArea[value.area]}</li>
+            </ul>
+            <hr />
+          </div>
+        );
+      })}
     </div>
   );
 };
 
+// container Component
 export default function TopContainer(): JSX.Element {
-  const _props = { ...useStateProps(), ...useDispatchProps() };
+  const _props = { ...useHooksProps() };
   return <Top {..._props} />;
 }

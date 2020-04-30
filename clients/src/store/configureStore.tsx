@@ -4,13 +4,14 @@ import { getDefaultMiddleware, configureStore, combineReducers } from '@reduxjs/
 import { createLogger } from 'redux-logger';
 
 // reducer
-import { testReducer } from '@/modules';
+import { testReducer, restaurantListReducer } from '@/modules';
 
 const history = createBrowserHistory();
 
 // reducerを束ねる
 const rootReducer = combineReducers({
   test: testReducer,
+  restaurantList: restaurantListReducer,
   router: connectRouter(history),
 });
 // Reducer全般の型定義
