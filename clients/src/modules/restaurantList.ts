@@ -34,7 +34,6 @@ export const restaurantListModule = createSlice({
     },
     successGetInfo: (state: RestaurantState, action): void => {
       state.isGetting = false;
-      console.log(action.payload);
       const { restaurant } = action.payload.data;
       state.restaurantInfo = restaurant;
       return;
@@ -62,7 +61,7 @@ export function getRestaurantInfo(
   return async function(dispatch: AppDispatch): Promise<void> {
     dispatch(restaurantListActions.requestGetInfo());
     try {
-      const getRestaurantInfo = fetchFunctions('getShopInfo');
+      const getRestaurantInfo = fetchFunctions('getRestaurantList');
       const response = await getRestaurantInfo({ limit, page });
       dispatch(restaurantListActions.successGetInfo(response));
     } catch (e) {

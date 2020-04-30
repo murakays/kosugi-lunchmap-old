@@ -25,7 +25,8 @@ module.exports = {
     },
   },
   rules: {
-    'require-jsdoc' : 0
+    'require-jsdoc' : 0,
+    'no-console' : ["error", { allow: ["warn", "error"] }]
   }
   // 参考：https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project
 };

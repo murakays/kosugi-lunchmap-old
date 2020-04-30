@@ -1,9 +1,6 @@
 import * as functions from 'firebase-functions';
 
-export default functions.region('asia-northeast1').https.onCall((data, context) => {
-  const { limit, page } = data;
-  console.log(limit, page);
-
+export default functions.region('asia-northeast1').https.onCall(data => {
   const mockData = {
     message: 'Hello',
     restaurant: [
