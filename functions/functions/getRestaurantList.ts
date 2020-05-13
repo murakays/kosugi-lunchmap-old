@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 
-export default functions.region('asia-northeast1').https.onCall(data => {
+export default functions.region('asia-northeast1').https.onCall((data, context) => {
   const mockData = {
     message: 'Hello',
     restaurant: [
@@ -18,6 +18,9 @@ export default functions.region('asia-northeast1').https.onCall(data => {
       },
     ],
   };
+
+  // auth check
+  // if (context.auth) console.log(context.auth.uid);
 
   return mockData;
 });
