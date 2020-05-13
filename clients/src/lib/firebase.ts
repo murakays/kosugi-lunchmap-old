@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/functions';
+import 'firebase/auth';
+import { AppDispatch } from '@/store/configureStore';
 
 // /__/firebase/init.jsonにアクセスでも取得可能
 firebase.initializeApp({
@@ -30,3 +32,25 @@ export const fetchFunctions = (functionName: string): firebase.functions.HttpsCa
     throw e;
   }
 };
+
+export const firebaseLogin = (): ((dispatch: AppDispatch) => Promise<void>) => {
+  return async function(): Promise<void> {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .catch(e => console.error(e));
+  };
+};
+
+export const firebaseLogout = (): ((dispatch: AppDispatch) => Promise<void>) => {
+  return async function(): Promise<void> {
+    firebase
+      .auth()
+      .signOut()
+      .catch(e => console.error(e));
+  };
+};
+
+export type FirebaseUser = firebase.User | undefined;
+export const firebaseAuth = firebase.auth();
