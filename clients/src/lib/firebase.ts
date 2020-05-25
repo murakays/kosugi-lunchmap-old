@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/functions';
 import 'firebase/auth';
+import 'firebase/storage';
 import { AppDispatch } from '@/store/configureStore';
 
 // /__/firebase/init.jsonにアクセスでも取得可能
@@ -54,3 +55,4 @@ export const firebaseLogout = (): ((dispatch: AppDispatch) => Promise<void>) => 
 
 export type FirebaseUser = firebase.User | undefined;
 export const firebaseAuth = firebase.auth();
+export const firebaseStorage = firebase.storage();

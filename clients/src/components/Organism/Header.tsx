@@ -4,11 +4,12 @@ import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
 import { FirebaseUser, firebaseLogin, firebaseLogout } from '@/lib/firebase';
 import { useDispatch } from 'react-redux';
+import logo from '../../../KOSUGILUNCHMAP-logo.png';
 
 const HeaderStyle = styled.header`
   min-width: 980px;
   margin: 0 auto;
-  height: 50px;
+  height: 120px;
   display: flex;
 `;
 
@@ -34,17 +35,12 @@ type IProps = {
 type IHeader = IProps & UseHooksProps;
 
 const Header: React.FC<IHeader> = (props: IHeader) => {
-  const TitleLogo = styled.div`
-    width: 500px;
-    height: 40px;
-    background-color: blue;
-  `;
   const { user, login, logout } = props;
 
   // ログイン用リンクはGoogleの公式バナーを用いる
   return (
     <HeaderStyle>
-      <TitleLogo />
+      <img src={logo} alt="KOSUGILUNCHMAP" />
       {user ? (
         <div>
           <span>{user?.displayName || 'guest'}</span>
