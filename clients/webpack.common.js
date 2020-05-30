@@ -18,6 +18,17 @@ module.exports = {
         use: [{ loader: 'babel-loader' }, { loader: 'ts-loader' }],
         exclude: /node_modules/,
       },
+      {
+        test: /\.png$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]'
+            }
+          }
+        ]
+      }
     ],
   },
   resolve: {

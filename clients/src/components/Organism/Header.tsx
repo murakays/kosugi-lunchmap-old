@@ -1,15 +1,25 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { FirebaseUser, firebaseLogin, firebaseLogout } from '@/lib/firebase';
 import { useDispatch } from 'react-redux';
 
+// images
+import logo from '../../../images/KOSUGILUNCHMAP-logo.png';
+import signInButton from '../../../images/btn_google_signin_light_focus_web.png';
+
 const HeaderStyle = styled.header`
   min-width: 980px;
   margin: 0 auto;
-  height: 50px;
+  height: 120px;
   display: flex;
+`;
+
+const SignInStateWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 `;
 
 type UseHooksProps = {
@@ -34,20 +44,28 @@ type IProps = {
 type IHeader = IProps & UseHooksProps;
 
 const Header: React.FC<IHeader> = (props: IHeader) => {
-  const TitleLogo = styled.div`
-    width: 500px;
-    height: 40px;
-    background-color: blue;
-  `;
   const { user, login, logout } = props;
 
   // ログイン用リンクはGoogleの公式バナーを用いる
   return (
     <HeaderStyle>
-      <TitleLogo />
+      <img src={logo} alt="KOSUGILUNCHMAP" />
       {user ? (
-        <div>
-          <span>{user?.displayName || 'guest'}</span>
+        <SignInStateWrapper>
+          <div
+            css={css`
+              color: gray;
+            `}
+          >
+            <span>ユーザー：</span>
+            <span
+              css={css`
+                margin-right: 8px;
+              `}
+            >
+              {user?.displayName || 'guest'}
+            </span>
+          </div>
           <a
             href=""
             onClick={(event: React.MouseEvent<HTMLAnchorElement>): void => {
@@ -57,20 +75,18 @@ const Header: React.FC<IHeader> = (props: IHeader) => {
           >
             ログアウト
           </a>
-        </div>
+        </SignInStateWrapper>
       ) : (
-        <div>
-          <span>ログインしていません(バナーを使う）</span>
-          <a
-            href=""
-            onClick={(event: React.MouseEvent<HTMLAnchorElement>): void => {
-              event.preventDefault();
-              login();
-            }}
-          >
-            Googleアカウントでログインする
-          </a>
-        </div>
+        <SignInStateWrapper>
+          <img
+            src={signInButton}
+            alt="signInGoogle"
+            onClick={login}
+            css={css`
+              cursor: pointer;
+            `}
+          />
+        </SignInStateWrapper>
       )}
     </HeaderStyle>
   );
