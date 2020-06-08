@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
+    "rootDir": "src",
     "paths": {
       "*": ["types/*"],
-      "@/*": ["src/*"]
+      "@/*": ["*"]
     },
     "target": "es5",
     "lib": ["dom", "es5", "es6"],
@@ -17,7 +18,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "jsx": "react"
+    "jsx": "react",
+    "typeRoots": ["node_modules/@types", "src/@types"]
   },
   "include": ["src", "webpack.config.js"]
 }

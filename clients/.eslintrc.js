@@ -24,5 +24,9 @@ module.exports = {
       version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
     },
   },
+  rules: {
+    'require-jsdoc' : 0,
+    'no-console' : ["error", { allow: ["warn", "error"] }]
+  }
   // 参考：https://www.robertcooper.me/using-eslint-and-prettier-in-a-typescript-project
 };

@@ -1,26 +1,57 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { UndefPayloadAction } from '@/modules';
-import { testModule } from '@/modules/test';
-import { RootState, AppDispatch } from '@/store/configureStore';
+import { RootState } from '@/store/configureStore';
+import {
+  RestaurantState,
+  // restaurantListActions,
+  getRestaurantInfo,
+} from '@/modules/restaurantList';
+import { restaurantArea } from '@/const/restaurant';
 
-const Top: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
-  const { count } = useSelector((state: RootState) => state.test);
+type UseHooksProps = RestaurantState & { getRestaurantList: () => void };
+const useHooksProps = (): UseHooksProps => {
+  // state
+  const state = useSelector((state: RootState) => state.restaurantList);
+  // dispatch
+  const dispatch = useDispatch();
 
-  const { increment, decrement } = testModule.actions;
-  const actions = {
-    increment: (): UndefPayloadAction => dispatch(increment()),
-    decrement: (): UndefPayloadAction => dispatch(decrement()),
+  return {
+    ...state,
+    getRestaurantList: React.useCallback(() => {
+      dispatch(getRestaurantInfo({ limit: state.limit, page: state.page }));
+    }, [dispatch]),
   };
+};
+
+type Props = ReturnType<typeof useHooksProps>;
+// presentational Component
+export const Top: React.FC<Props> = (props: Props) => {
+  const { isGetting, restaurantInfo, page, limit, getRestaurantList } = props;
 
   return (
-    <div className="App">
-      <p>{count}</p>
-      <button onClick={actions.increment}>increment</button>
-      <button onClick={actions.decrement}>decrement</button>
+    <div>
+      {isGetting && <span>isGetting...</span>}
+      <button onClick={getRestaurantList}>fetch</button>
+      <p>Page:{page}</p>
+      <p>Limit:{limit}</p>
+      {restaurantInfo.map((value, index) => {
+        return (
+          <div key={index}>
+            <ul>
+              <li>restaurantId:{value.restaurantId}</li>
+              <li>name:{value.name}</li>
+              <li>area:{restaurantArea[value.area]}</li>
+            </ul>
+            <hr />
+          </div>
+        );
+      })}
     </div>
   );
 };
 
-export default Top;
+// container Component
+export default function TopContainer(): JSX.Element {
+  const _props = { ...useHooksProps() };
+  return <Top {..._props} />;
+}
