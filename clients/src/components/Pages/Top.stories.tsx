@@ -10,9 +10,9 @@ const sampleProps = {
   restaurantInfo: [
     {
       restaurantId: 1,
-      name: 'デニーズ',
+      restaurantName: 'デニーズ',
       area: 'NE',
-      photoUrl: '',
+      mediaUrl: '',
     },
   ],
   limit: 10,

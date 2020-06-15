@@ -6,15 +6,17 @@ export default functions.region('asia-northeast1').https.onCall((data, context) 
     restaurant: [
       {
         restaurantId: 1,
-        name: 'デニーズ',
+        restaurantName: 'デニーズ',
         area: 'NE',
-        photoUrl: '',
+        mediaUrl:
+          'https://firebasestorage.googleapis.com/v0/b/kosugi-lunchmap.appspot.com/o/public%2Frestaurants%2F1%2FIBUS458A1871_TP_V4.jpg?alt=media',
       },
       {
         restaurantId: 2,
-        name: 'さくら水産',
+        restaurantName: 'さくら水産',
         area: 'NE',
-        photoUrl: '',
+        mediaUrl:
+          'https://firebasestorage.googleapis.com/v0/b/kosugi-lunchmap.appspot.com/o/public%2Frestaurants%2F1%2FIBUS458A1871_TP_V4.jpg?alt=media',
       },
     ],
   };

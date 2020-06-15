@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
-    "build": "mv dist/** old_bundles && webpack --config ./webpack.prod.js",
+    "build": "webpack --config ./webpack.prod.js",
     "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}'",
     "serve": "firebase serve --only functions,hosting",
     "deploy": "firebase deploy --only hosting",
