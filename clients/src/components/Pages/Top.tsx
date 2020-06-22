@@ -1,12 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import {
-  RestaurantState,
-  // restaurantListActions,
-  getRestaurantInfo,
-} from '@/modules/restaurantList';
-import { restaurantArea } from '@/const/restaurant';
+import { RestaurantState, getRestaurantInfo } from '@/modules/restaurantList';
+import { RestaurantListsCard } from '@/components/Organism/RestaurantListsCard';
 
 type UseHooksProps = RestaurantState & { getRestaurantList: () => void };
 const useHooksProps = (): UseHooksProps => {
@@ -28,24 +24,15 @@ type Props = ReturnType<typeof useHooksProps>;
 export const Top: React.FC<Props> = (props: Props) => {
   const { isGetting, restaurantInfo, page, limit, getRestaurantList } = props;
 
+  useEffect(() => {
+    getRestaurantList();
+  }, []);
+
   return (
     <div>
-      {isGetting && <span>isGetting...</span>}
-      <button onClick={getRestaurantList}>fetch</button>
       <p>Page:{page}</p>
       <p>Limit:{limit}</p>
-      {restaurantInfo.map((value, index) => {
-        return (
-          <div key={index}>
-            <ul>
-              <li>restaurantId:{value.restaurantId}</li>
-              <li>name:{value.name}</li>
-              <li>area:{restaurantArea[value.area]}</li>
-            </ul>
-            <hr />
-          </div>
-        );
-      })}
+      <RestaurantListsCard restaurantInfo={restaurantInfo} isGetting={isGetting} />
     </div>
   );
 };

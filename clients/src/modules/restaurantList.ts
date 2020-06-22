@@ -3,11 +3,11 @@ import { AppDispatch } from '@/store/configureStore';
 
 import { fetchFunctions } from '@/lib/firebase.ts';
 
-type restaurantInfo = {
+export type restaurantInfo = {
   restaurantId: number;
-  name: string;
+  restaurantName: string;
   area: string;
-  photoUrl: string;
+  mediaUrl: string;
 };
 
 export type RestaurantState = {
