@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,18 +8,19 @@ import Typography from '@material-ui/core/Typography';
 import { restaurantArea } from '@/const/restaurant';
 import { jsx, SerializedStyles } from '@emotion/core';
 
-type IProps = {
+interface Props extends RouteComponentProps<{}> {
   area: string;
   mediaUrl: string;
   mediaSize: SerializedStyles;
+  restaurantId: number;
   restaurantName: string;
-};
+}
 
-export const MediaCard: React.FC<IProps> = (props: IProps) => {
-  const { area, mediaUrl, mediaSize, restaurantName } = props;
+const MediaCard = (props: Props): JSX.Element => {
+  const { area, mediaUrl, mediaSize, restaurantName, restaurantId } = props;
   return (
     <Card>
-      <CardActionArea>
+      <CardActionArea onClick={(): void => props.history.push(`/detail/${restaurantId}`)}>
         <CardMedia image={mediaUrl} css={mediaSize} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -31,3 +32,5 @@ export const MediaCard: React.FC<IProps> = (props: IProps) => {
     </Card>
   );
 };
+
+export default withRouter(MediaCard);

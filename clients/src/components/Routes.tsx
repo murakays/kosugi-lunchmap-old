@@ -1,4 +1,6 @@
-import React, { Suspense } from 'react';
+/** @jsx jsx */
+import React, { Suspense, Fragment } from 'react';
+import { jsx, css } from '@emotion/core';
 import { Route, Switch } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { firebaseAuth } from '@/lib/firebase';
@@ -7,6 +9,7 @@ import { firebaseAuth } from '@/lib/firebase';
 import Header from '@/components/Organism/Header';
 import Footer from '@/components/Organism/Footer';
 const Top = React.lazy(() => import('@/components/Pages/Top'));
+const RestaurantDetail = React.lazy(() => import('@/components/Pages/RestaurantDetail'));
 
 const Routes: React.FC = () => {
   const [user, initialising, error] = useAuthState(firebaseAuth);
@@ -20,15 +23,22 @@ const Routes: React.FC = () => {
   }
 
   return (
-    <>
+    <Fragment>
       <Header user={user} />
-      <Suspense fallback={<div>loading...</div>}>
-        <Switch>
-          <Route exact path="/" component={Top} />
-        </Switch>
-      </Suspense>
+      <div
+        css={css`
+          min-width: 984px;
+        `}
+      >
+        <Suspense fallback={<div>loading...</div>}>
+          <Switch>
+            <Route exact path="/" component={Top} />
+            <Route path="/detail/:id" component={RestaurantDetail} />
+          </Switch>
+        </Suspense>
+      </div>
       <Footer />
-    </>
+    </Fragment>
   );
 };
 

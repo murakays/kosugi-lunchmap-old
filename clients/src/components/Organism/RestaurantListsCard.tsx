@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx, css } from '@emotion/core';
 import { restaurantInfo } from '@/modules/restaurantList';
-import { MediaCard } from '@/components/Molecules/MediaCard';
+import MediaCard from '@/components/Molecules/MediaCard';
 import { mediaSize } from '@/const/restaurant';
 
 // material-ui
@@ -51,6 +51,7 @@ export const RestaurantListsCard: React.FC<IProps> = (props: IProps) => {
                   area={value.area}
                   mediaUrl={value.mediaUrl}
                   mediaSize={mediaSize.lists}
+                  restaurantId={value.restaurantId}
                   restaurantName={value.restaurantName}
                 />
               </GridListTile>
