@@ -18,10 +18,6 @@ const CardStyle = css`
   margin-right: auto;
 `;
 
-const MediaCardStyle = css`
-  width: 320px;
-`;
-
 const CircularProgressStyle = css`
   width: 40px;
   height: 40px;
@@ -46,7 +42,7 @@ export const RestaurantListsCard: React.FC<IProps> = (props: IProps) => {
         <GridList cellHeight={300} cols={3}>
           {restaurantInfo.map((value, index) => {
             return (
-              <GridListTile key={index} css={MediaCardStyle}>
+              <GridListTile key={index}>
                 <MediaCard
                   area={value.area}
                   mediaUrl={value.mediaUrl}

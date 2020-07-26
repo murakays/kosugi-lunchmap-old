@@ -2,37 +2,51 @@ import React, { useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/configureStore';
-import { RestaurantState, getRestaurantInfo } from '@/modules/restaurantList';
+import { RestaurantDetailState, getRestaurantDetail } from '@/modules/restaurantDetail';
+import CircularProgress from '@/components/Atom/CircularProgress';
+import { RestaurantDetailCard } from '@/components/Organism/RestaurantDetailCard';
 
-type UseHooksProps = RestaurantState & { getRestaurantList: () => void };
+type UseHooksProps = RestaurantDetailState & {
+  getRestaurantDetail: (restaurantId: string) => void;
+};
 const useHooksProps = (): UseHooksProps => {
   // state
-  const state = useSelector((state: RootState) => state.restaurantList);
+  const state = useSelector((state: RootState) => state.restaurantDetail);
   // dispatch
   const dispatch = useDispatch();
 
   return {
     ...state,
-    getRestaurantList: React.useCallback(() => {
-      dispatch(getRestaurantInfo({ limit: state.limit, page: state.page }));
-    }, [dispatch]),
+    getRestaurantDetail: React.useCallback(
+      (restaurantId: string) => {
+        dispatch(getRestaurantDetail({ restaurantId: restaurantId }));
+      },
+      [dispatch],
+    ),
   };
 };
 
 type Props = ReturnType<typeof useHooksProps> & RouteComponentProps<{ id: string }>;
 // presentational Component
 export const RestaurantDetail: React.FC<Props> = (props: Props) => {
-  const { getRestaurantList, match } = props;
+  const { getRestaurantDetail, match, isGetting, restaurantDetailInfo } = props;
   const detailId = match.params.id;
 
   useEffect(() => {
-    getRestaurantList();
+    getRestaurantDetail(detailId);
   }, []);
 
   return (
     <div>
-      <p>{detailId}</p>
-      <div>aaaaa</div>
+      {isGetting ? (
+        <CircularProgress />
+      ) : (
+        <div>
+          <p>{detailId}</p>
+          <div>パンくず</div>
+          <RestaurantDetailCard restaurantDetailInfo={restaurantDetailInfo} />
+        </div>
+      )}
     </div>
   );
 };
