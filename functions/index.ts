@@ -10,3 +10,4 @@ export default function exportIfNeeded(
 
 // functions
 exportIfNeeded('getRestaurantList', exports);
+exportIfNeeded('getRestaurantDetail', exports);

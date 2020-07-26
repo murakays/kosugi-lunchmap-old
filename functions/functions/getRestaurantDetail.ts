@@ -7,10 +7,10 @@ export default functions.region('asia-northeast1').https.onCall((data, context) 
       area: 'SE',
       address: '神奈川県川崎市',
       smoking: '喫煙',
-      eMoney: 'PayPay,iD',
+      eMoney: 'PayPay iD',
       sns: {
-        twitter: '',
-        instagram: 'htt//addada/aa/aa',
+        twitter: 'https://www.yahoo.co.jp/',
+        instagram: 'https://www.yahoo.co.jp/',
       },
     },
     businessDay: {

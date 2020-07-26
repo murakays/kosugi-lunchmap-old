@@ -8,15 +8,18 @@ import { IRestaurantDetailInfo } from '@/modules/restaurantDetail';
 const TR = styled.tr`
   height: 60px;
   border-bottom: 1px solid silver;
+  :first-child {
+    border-top: 1px solid silver;
+  }
 `;
 
 const TH = styled.th`
   background-color: #fecb6e;
-  padding: 16px auto;
+  width: 120px;
+  font-weight: bold;
 `;
 
 const TD = styled.td`
-  width: 400px;
   padding: 8px 0 8px 16px;
 `;
 
@@ -30,9 +33,14 @@ const RestaurantDetailTable = styled.table`
 `;
 
 const RestaurantDetailTitle = styled.div`
-  border-left: solid 3px #fecb6e;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
+  padding: 16px;
+`;
+
+const RestaurantDetailTitleText = styled.div`
+  border-left: solid 3px #fecb6e;
+  padding-left: 8px;
 `;
 
 type IProps = {
@@ -63,7 +71,9 @@ export const RestaurantDetailInfo = React.memo<IProps>(props => {
   };
   return (
     <RestaurantDetailWrapper>
-      <RestaurantDetailTitle>店舗詳細</RestaurantDetailTitle>
+      <RestaurantDetailTitle>
+        <RestaurantDetailTitleText>店舗詳細</RestaurantDetailTitleText>
+      </RestaurantDetailTitle>
       <RestaurantDetailTable>
         <tbody>
           {Object.keys(restaurantDetailInfo).map(key => {
