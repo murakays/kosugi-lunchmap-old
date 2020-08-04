@@ -29,7 +29,7 @@ const useHooksProps = (): UseHooksProps => {
 type Props = ReturnType<typeof useHooksProps> & RouteComponentProps<{ id: string }>;
 // presentational Component
 export const RestaurantDetail: React.FC<Props> = (props: Props) => {
-  const { getRestaurantDetail, match, isGetting, restaurantDetailInfo } = props;
+  const { getRestaurantDetail, match, isGetting, restaurantDetailInfo, businessDay } = props;
   const detailId = match.params.id;
 
   useEffect(() => {
@@ -44,7 +44,10 @@ export const RestaurantDetail: React.FC<Props> = (props: Props) => {
         <div>
           <p>{detailId}</p>
           <div>パンくず</div>
-          <RestaurantDetailCard restaurantDetailInfo={restaurantDetailInfo} />
+          <RestaurantDetailCard
+            restaurantDetailInfo={restaurantDetailInfo}
+            businessDay={businessDay}
+          />
         </div>
       )}
     </div>

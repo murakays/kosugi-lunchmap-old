@@ -32,3 +32,20 @@ export const detailInfoLabel: { [key: string]: string } = {
   sns: 'SNS',
   businessDay: '営業日',
 };
+
+export const detailTitleLabel: { [key: string]: string } = {
+  detail: '店舗詳細',
+  businessDay: '営業日',
+};
+
+export type IDetailTitleLabel = keyof typeof detailTitleLabel;
+
+export const businessDayLabel: { [key: string]: string } = {
+  sun: '日',
+  mon: '月',
+  tue: '火',
+  wed: '水',
+  thu: '木',
+  fri: '金',
+  sat: '土',
+};

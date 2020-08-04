@@ -2,8 +2,9 @@
 import React from 'react';
 import { jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import { restaurantArea, detailInfoLabel } from '@/const/restaurant';
+import { restaurantArea, detailInfoLabel, detailTitleLabel } from '@/const/restaurant';
 import { IRestaurantDetailInfo } from '@/modules/restaurantDetail';
+import { RestaurantDetailTitle } from '@/components/Atom/RestaurantDetailTitle';
 
 const TR = styled.tr`
   height: 60px;
@@ -30,17 +31,6 @@ const RestaurantDetailWrapper = styled.div`
 
 const RestaurantDetailTable = styled.table`
   width: 100%;
-`;
-
-const RestaurantDetailTitle = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  padding: 16px;
-`;
-
-const RestaurantDetailTitleText = styled.div`
-  border-left: solid 3px #fecb6e;
-  padding-left: 8px;
 `;
 
 type IProps = {
@@ -71,9 +61,7 @@ export const RestaurantDetailInfo = React.memo<IProps>(props => {
   };
   return (
     <RestaurantDetailWrapper>
-      <RestaurantDetailTitle>
-        <RestaurantDetailTitleText>店舗詳細</RestaurantDetailTitleText>
-      </RestaurantDetailTitle>
+      <RestaurantDetailTitle detailTitle={detailTitleLabel['detail']} />
       <RestaurantDetailTable>
         <tbody>
           {Object.keys(restaurantDetailInfo).map(key => {

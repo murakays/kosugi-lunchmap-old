@@ -2,8 +2,9 @@
 import React from 'react';
 import { jsx, css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { IRestaurantDetailInfo } from '@/modules/restaurantDetail';
+import { IBusinessDay, IRestaurantDetailInfo } from '@/modules/restaurantDetail';
 import { RestaurantDetailInfo } from '@/components/Molecules/RestaurantDetailInfo';
+import BusinessDayTable from '@/components/Molecules/BusinessDayTable';
 
 // material-ui
 import Card from '@material-ui/core/Card';
@@ -24,16 +25,17 @@ const DetailContentsWrapper = styled.div`
 
 type IProps = {
   restaurantDetailInfo: IRestaurantDetailInfo;
+  businessDay: IBusinessDay;
 };
 
 export const RestaurantDetailCard = React.memo<IProps>(props => {
-  const { restaurantDetailInfo } = props;
+  const { restaurantDetailInfo, businessDay } = props;
   return (
     <Card css={CardStyle}>
       <DetailContentsWrapper>
         <div>{restaurantDetailInfo.restaurantName}</div>
         <div>メディアカルーセル</div>
-        <div>営業日コンポーネント</div>
+        <BusinessDayTable businessDay={businessDay} />
         <RestaurantDetailInfo restaurantDetailInfo={restaurantDetailInfo} />
         <div>フォトライブラリー</div>
       </DetailContentsWrapper>
